@@ -1,7 +1,7 @@
 import RSSParser from 'rss-parser'
 import axios from 'axios'
 import cheerio from 'cheerio'
-import { fetchJsonFile } from '../../../frontend/lib/storage/github.js'
+import { loadTemples } from '../../_lib/loadTemples.js'
 
 const rssParser = new RSSParser({ timeout: 10000 })
 
@@ -73,7 +73,7 @@ export default async function handler(req, res) {
   const { id } = req.query
   if (!id) return res.status(400).json({ message: 'Missing temple id' })
   try {
-    const { json: temples } = await fetchJsonFile('temples.json')
+    const temples = loadTemples()
     if (!Array.isArray(temples)) return res.status(500).json({ message: 'temples.json missing' })
     const temple = temples.find((t) => String(t.id) === String(id))
     if (!temple) return res.status(404).json({ message: 'Temple not found' })

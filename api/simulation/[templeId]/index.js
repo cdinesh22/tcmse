@@ -1,4 +1,4 @@
-import { fetchJsonFile } from '../../../frontend/lib/storage/github.js'
+import { loadTemples } from '../../_lib/loadTemples.js'
 
 function buildMockSimulation(temple) {
   const seed = (temple?.id || temple?._id || 'x').length
@@ -51,8 +51,7 @@ export default async function handler(req, res) {
   const { templeId } = req.query
   if (!templeId) return res.status(400).json({ message: 'Missing templeId' })
   try {
-    const { json } = await fetchJsonFile('temples.json')
-    const list = Array.isArray(json) ? json : []
+    const list = loadTemples()
     const temple = list.find(t => String(t.id||t._id) === String(templeId))
     if (!temple) return res.status(404).json({ message: 'Temple not found' })
     const sim = buildMockSimulation(temple)

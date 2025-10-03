@@ -1,10 +1,9 @@
-import { fetchJsonFile } from '../../frontend/lib/storage/github.js'
+import { loadTemples } from '../_lib/loadTemples.js'
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ message: 'Method not allowed' })
   try {
-    const { json } = await fetchJsonFile('temples.json')
-    const list = Array.isArray(json) ? json : []
+    const list = loadTemples()
     const normalized = list.map(t => ({
       ...t,
       _id: t._id || t.id,
