@@ -1,19 +1,107 @@
 [
   {
+    "id": "somnath",
+    "name": "Somnath Temple",
+    "location": {"city": "Somnath", "state": "Gujarat", "coordinates": {"latitude": 20.8880, "longitude": 70.4017}, "address": "Somnath, Gir Somnath, Gujarat 362268"},
+    "description": "The Somnath temple is one of the most sacred pilgrimage sites for Hindus and the first among the twelve Jyotirlinga shrines of Shiva.",
+    "images": [
+      {"url": "/images/somnath-1.svg", "caption": "Main temple view"},
+      {"url": "/images/somnath-2.svg", "caption": "Evening aarti"}
+    ],
+    "capacity": {"maxVisitorsPerSlot": 200, "totalDailyCapacity": 4000},
+    "timings": {"openTime": "06:00", "closeTime": "22:00", "slotDuration": 30, "breakTime": [{"start": "12:00", "end": "13:00", "reason": "Afternoon break"}]},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 45, "lastUpdated": null},
+    "rules": ["Remove footwear before entering", "Mobile phones on silent", "No photography inside main sanctum", "Maintain silence"],
+    "externalSources": {"websiteUrl": "https://somnath.org", "rssFeeds": []}
+  },
+  {
+    "id": "dwarkadhish",
+    "name": "Dwarkadhish Temple",
+    "location": {"city": "Dwarka", "state": "Gujarat", "coordinates": {"latitude": 22.2394, "longitude": 68.9678}, "address": "Dwarka, Gujarat 361335"},
+    "images": [ {"url": "/images/dwarka-1.svg", "caption": "Temple architecture"} ],
+    "capacity": {"maxVisitorsPerSlot": 150, "totalDailyCapacity": 3000},
+    "timings": {"openTime": "06:30", "closeTime": "21:30", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 32, "lastUpdated": null},
+    "rules": ["Dress modestly", "No leather items", "Follow queue discipline"],
+    "externalSources": {"websiteUrl": "https://dwarkadhish.org", "rssFeeds": []}
+  },
+  {
+    "id": "ambaji",
+    "name": "Ambaji Temple",
+    "location": {"city": "Ambaji", "state": "Gujarat", "coordinates": {"latitude": 24.2120, "longitude": 72.8631}, "address": "Ambaji, Banaskantha, Gujarat 385110"},
+    "capacity": {"maxVisitorsPerSlot": 180, "totalDailyCapacity": 3600},
+    "timings": {"openTime": "05:30", "closeTime": "22:30", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 67, "lastUpdated": null},
+    "externalSources": {"websiteUrl": "https://ambajitemple.in", "rssFeeds": []}
+  },
+  {
+    "id": "pavagadh",
+    "name": "Pavagadh Temple",
+    "location": {"city": "Pavagadh", "state": "Gujarat", "coordinates": {"latitude": 22.4833, "longitude": 73.5333}, "address": "Pavagadh, Panchmahal, Gujarat 389360"},
+    "capacity": {"maxVisitorsPerSlot": 120, "totalDailyCapacity": 2400},
+    "timings": {"openTime": "06:00", "closeTime": "21:00", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 28, "lastUpdated": null},
+    "externalSources": {"websiteUrl": "https://pavagadhshaktipeeth.org", "rssFeeds": []}
+  },
+  {
     "id": "kashi-vishwanath",
     "name": "Kashi Vishwanath Temple",
-    "location": {
-      "city": "Varanasi",
-      "state": "Uttar Pradesh",
-      "coordinates": { "latitude": 25.3109, "longitude": 83.0104 }
-    },
-    "timings": { "openTime": "03:00", "closeTime": "23:00", "breakTime": [] },
-    "currentStatus": { "isOpen": true, "crowdLevel": "medium", "lastUpdated": null },
-    "externalSources": {
-      "websiteUrl": "https://shrikashivishwanath.org/",
-      "rssFeeds": []
-    },
-    "slotAvailability": { "status": "limited", "remaining": 120 }
+    "location": {"city": "Varanasi", "state": "Uttar Pradesh", "coordinates": {"latitude": 25.3109, "longitude": 83.0104}, "address": "Lahori Tola, Varanasi, Uttar Pradesh 221001"},
+    "images": [ {"url": "/images/kashi-1.svg", "caption": "Temple corridor"}, {"url": "/images/kashi-2.svg", "caption": "Evening Ganga Aarti nearby"} ],
+    "capacity": {"maxVisitorsPerSlot": 200, "totalDailyCapacity": 4000},
+    "timings": {"openTime": "03:00", "closeTime": "23:00", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "crowdLevel": "medium", "lastUpdated": null},
+    "externalSources": {"websiteUrl": "https://shrikashivishwanath.org/", "rssFeeds": []}
+  },
+  {
+    "id": "ttd",
+    "name": "Tirumala Tirupati Devasthanam (TTD)",
+    "location": {"city": "Tirupati", "state": "Andhra Pradesh", "coordinates": {"latitude": 13.6836, "longitude": 79.3475}},
+    "images": [ {"url": "/images/ttd-1.svg", "caption": "Main gopuram"}, {"url": "/images/ttd-2.svg", "caption": "Queue complex"} ],
+    "capacity": {"maxVisitorsPerSlot": 250, "totalDailyCapacity": 6000},
+    "timings": {"openTime": "03:00", "closeTime": "23:00", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 0, "lastUpdated": null},
+    "externalSources": {"websiteUrl": "https://tirumala.org", "rssFeeds": []}
+  },
+  {
+    "id": "golden-temple",
+    "name": "Golden Temple (Harmandir Sahib)",
+    "location": {"city": "Amritsar", "state": "Punjab", "coordinates": {"latitude": 31.6200, "longitude": 74.8765}},
+    "images": [ {"url": "/images/golden-1.svg", "caption": "Harmandir Sahib at dusk"} ],
+    "capacity": {"maxVisitorsPerSlot": 220, "totalDailyCapacity": 5000},
+    "timings": {"openTime": "03:00", "closeTime": "23:00", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 0, "lastUpdated": null},
+    "externalSources": {"websiteUrl": "https://www.goldentempleamritsar.org", "rssFeeds": []}
+  },
+  {
+    "id": "meenakshi",
+    "name": "Meenakshi Amman Temple",
+    "location": {"city": "Madurai", "state": "Tamil Nadu", "coordinates": {"latitude": 9.9195, "longitude": 78.1193}},
+    "images": [ {"url": "/images/meenakshi-1.svg", "caption": "Temple towers"} ],
+    "capacity": {"maxVisitorsPerSlot": 200, "totalDailyCapacity": 4500},
+    "timings": {"openTime": "05:00", "closeTime": "22:00", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 0, "lastUpdated": null},
+    "externalSources": {"websiteUrl": "https://maduraitourism.co.in", "rssFeeds": []}
+  },
+  {
+    "id": "kamakhya",
+    "name": "Kamakhya Temple",
+    "location": {"city": "Guwahati", "state": "Assam", "coordinates": {"latitude": 26.1667, "longitude": 91.7086}},
+    "images": [ {"url": "/images/kamakhya-1.svg", "caption": "Main dome"} ],
+    "capacity": {"maxVisitorsPerSlot": 180, "totalDailyCapacity": 3600},
+    "timings": {"openTime": "05:30", "closeTime": "22:00", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 0, "lastUpdated": null},
+    "externalSources": {"websiteUrl": "https://kamakhyatemple.org", "rssFeeds": []}
+  },
+  {
+    "id": "vaishno-devi",
+    "name": "Vaishno Devi Shrine",
+    "location": {"city": "Katra", "state": "Jammu and Kashmir", "coordinates": {"latitude": 33.0337, "longitude": 74.9490}},
+    "images": [ {"url": "/images/vaishno-1.svg", "caption": "Bhawan complex"} ],
+    "capacity": {"maxVisitorsPerSlot": 200, "totalDailyCapacity": 5000},
+    "timings": {"openTime": "04:00", "closeTime": "23:00", "slotDuration": 30, "breakTime": []},
+    "currentStatus": {"isOpen": true, "currentOccupancy": 0, "lastUpdated": null},
+    "externalSources": {"websiteUrl": "https://www.maavaishnodevi.org", "rssFeeds": []}
   }
 ]
 
