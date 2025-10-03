@@ -4,7 +4,7 @@
   "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/dist",
   "routes": [
-    { "src": "/api/(.*)", "dest": "api/$1.js" },
+    { "src": "/api/(.*)", "dest": "api/$1" },
     { "src": "/assets/(.*)", "dest": "frontend/dist/assets/$1" },
     { "src": "/(.*)", "dest": "frontend/dist/index.html" }
   ]
