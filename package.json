@@ -1,0 +1,14 @@
+{
+  "name": "temple-crowd-management",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "install-all": "npm --prefix backend install && npm --prefix frontend install && npm install",
+    "dev": "concurrently -c \"blue,green\" -n backend,frontend \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "start": "concurrently -c \"blue,green\" -n backend,frontend \"npm --prefix backend start\" \"npm --prefix frontend run preview -- --port 5173 --strictPort\"",
+    "build": "npm --prefix frontend run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
