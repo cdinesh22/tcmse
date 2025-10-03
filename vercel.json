@@ -2,13 +2,8 @@
   "version": 2,
   "buildCommand": "npm --prefix frontend ci && npm --prefix frontend run build",
   "outputDirectory": "frontend/dist",
-  "functions": {
-    "frontend/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "routes": [
-    { "src": "/api/(.*)", "dest": "frontend/api/$1.js" },
+    { "src": "/api/(.*)", "dest": "api/$1.js" },
     { "src": "/assets/(.*)", "dest": "frontend/dist/assets/$1" },
     { "src": "/(.*)", "dest": "frontend/dist/index.html" }
   ]
