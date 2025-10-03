@@ -4,78 +4,49 @@ A full-stack simulation-based platform to manage temple crowd flow, darshan slot
 
 ## Tech Stack
 - Frontend: React (Vite) + Tailwind CSS, React Router, React-Leaflet, Chart.js
-- Backend: Node.js + Express.js
-- Database: MongoDB (Mongoose)
-- Auth: JWT-based authentication
+- API: Vercel Serverless Functions under `frontend/api/*` (Node 18+, ESM)
+- Persistence: GitHub-backed JSON via GitHub Contents API (no MongoDB)
+- Auth: JWT (planned)
 
 ## Monorepo Structure
-- `backend/` Express API, MongoDB models, seed scripts
-- `frontend/` React app with Tailwind, routing, dashboards
+- `frontend/` React app, serverless API under `frontend/api/*`, shared libs
+- `vercel.json` routes API and static output (Vite `dist/`)
 
 ## Prerequisites
 - Node.js 18+
-- MongoDB running locally or a MongoDB URI
+- GitHub repository to store JSON data (can be same repo)
 
-## Environment Variables
-Create `backend/.env` from `.env.example` and adjust as required:
+## Environment Variables (Vercel)
+Set these in your Vercel Project Settings → Environment Variables:
+
 ```
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/temple_crowd_management
+# GitHub JSON storage (Contents API)
+GITHUB_OWNER=your-github-username-or-org
+GITHUB_REPO=your-repo-for-data (can be this repo name)
+GITHUB_TOKEN=ghp_xxx_with_repo_contents_scope
+GITHUB_BRANCH=main            # optional, default: main
+GITHUB_DATA_DIR=data          # optional, default: data
+
+# Optional future auth
 JWT_SECRET=change_this_in_prod
-JWT_EXPIRE=7d
-FRONTEND_URL=http://localhost:5173
-
-# Optional email config
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_app_password
-
-# Seed admin
-ADMIN_EMAIL=admin@temple.com
-ADMIN_PASSWORD=admin123
-NODE_ENV=development
-
-# AI Assistant (Gemini)
-# Create an API key at https://aistudio.google.com/app/apikey and set it here
-GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-Create `frontend/.env` from `.env.example` if needed:
-```
-VITE_BACKEND_URL=http://localhost:5000
-VITE_APP_NAME=Temple & Pilgrimage Crowd Management
-```
+Local `.env` for the frontend is optional now; the API client uses same-origin (`''`).
 
 ## Local Setup
-1) Install backend deps and seed database
-```
-cd backend
-npm install
-npm run seed
-npm run dev
-```
-
-2) In a new terminal, run the frontend
+1) Run the frontend (serverless uses remote GitHub API, no DB needed)
 ```
 cd frontend
 npm install
 npm run dev
 ```
 
-- Frontend: http://localhost:5173
-- Backend: http://localhost:5000
-- Health check: http://localhost:5000/api/health
+- App: http://localhost:5173
+- API example: http://localhost:5173/api/temples/kashi-vishwanath/realtime
 
 ## AI Tutor
 - A floating AI Tutor widget is available on all pages.
-- It helps with booking flow, slot issues, timings, heatmaps, and general site usage.
-- Backend route: `POST /api/assistant` and `GET /api/assistant/stream` (SSE streaming).
-- Frontend component: `frontend/src/components/AITutor.jsx` mounted in `frontend/src/App.jsx`.
-- Requirements:
-  - Set `GEMINI_API_KEY` in `backend/.env`
-  - Ensure `VITE_BACKEND_URL` in `frontend/.env` points to your backend (default `http://localhost:5000`).
-  - Restart both backend and frontend after setting env variables.
+- Serverless endpoints for assistant are planned; current UI may be stubbed.
 
 ## Sample Logins
 - Admin: `admin@temple.com` / `admin123`
@@ -84,13 +55,10 @@ npm run dev
   - `priya@example.com` / `pilgrim123`
   - `amit@example.com` / `pilgrim123`
 
-## Key API Endpoints
-- Auth: `/api/auth/register`, `/api/auth/login`, `/api/auth/me`
-- Temples: `/api/temples`, `/api/temples/:id/status`
-- Slots: `/api/slots`, `/api/slots/bulk`
-- Bookings: `/api/bookings`, `/api/bookings/:id`
-- Simulation: `/api/simulation/:templeId`, `/api/simulation/:templeId/update`, `/api/simulation/:templeId/alert`
-- Analytics/Admin: `/api/admin/dashboard`, `/api/analytics/overview`
+## Key Serverless Endpoints (current)
+- Realtime temple info: `GET /api/temples/[id]/realtime`
+
+Data source: `frontend/data/temples.json` (seed file) and external website/RSS scraping.
 
 ## Features Overview
 - User (Pilgrim)
@@ -100,13 +68,20 @@ npm run dev
 - Visualization
   - Leaflet map with areas/facilities, occupancy progress, charts
 
-## Deployment Notes
-- Frontend (Vercel): point to `frontend/`
-- Backend (Render/Heroku): point to `backend/`
-- Set `FRONTEND_URL` on backend to your deployed frontend URL
-- Set `VITE_BACKEND_URL` on frontend to your backend URL
+## Deployment (Vercel)
+1) Push repo to GitHub (e.g., `cdinesh22/tcmse`).
+2) On Vercel, Import Project from GitHub.
+3) Project Settings → General:
+   - Framework Preset: Vite
+4) Project Settings → Environment Variables: add `GITHUB_*` and `JWT_SECRET` as above.
+5) `vercel.json` is included and routes:
+   - `/api/*` → `frontend/api/*` (Node serverless)
+   - `/assets/*` → `frontend/dist/assets/*`
+   - `/*` → `frontend/dist/index.html`
+6) Deploy. Test: `https://<your-app>.vercel.app/api/temples/kashi-vishwanath/realtime`
 
 ## Roadmap
-- Email/SMS notifications via a provider (optional in this demo)
-- Enhanced admin slot management UI (create/edit/delete)
-- Realtime updates via websockets (Socket.IO)
+- Auth endpoints as serverless
+- Bookings/slots as JSON-backed endpoints
+- Admin tools to edit `temples.json` via API
+- Optional email/SMS notifications
