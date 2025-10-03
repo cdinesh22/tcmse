@@ -1,6 +1,6 @@
 import RSSParser from 'rss-parser'
 import axios from 'axios'
-import cheerio from 'cheerio'
+import { load as loadHTML } from 'cheerio'
 import { loadTemples } from '../../_lib/loadTemples.js'
 
 const rssParser = new RSSParser({ timeout: 10000 })
@@ -38,20 +38,25 @@ async function fetchRSSItems(feeds = []) {
 async function scrapeWebsiteForHints(websiteUrl) {
   const html = await safeGet(websiteUrl, { responseType: 'text' })
   if (!html) return { hints: {}, notices: [] }
-  const $ = cheerio.load(html)
+  const $ = loadHTML(html)
   const text = $('body').text().replace(/\s+/g, ' ').toLowerCase()
   const hints = {}
   if (text.includes('darshan') && (text.includes('time') || text.includes('timing'))) hints.darshanMentioned = true
   if (text.includes('aarti') || text.includes('arati')) hints.aartiMentioned = true
   const notices = []
-  $('a').each((_, a) => {
-    const href = $(a).attr('href') || ''
-    const label = $(a).text().trim()
-    const l = label.toLowerCase()
-    if (l.includes('notice') || l.includes('announcement') || l.includes('news')) {
-      notices.push({ title: label || 'Notice', link: href.startsWith('http') ? href : new URL(href, websiteUrl).href })
-    }
-  })
+  try {
+    $('a').each((_, a) => {
+      try {
+        const href = $(a).attr('href') || ''
+        const label = $(a).text().trim()
+        const l = label.toLowerCase()
+        if (l.includes('notice') || l.includes('announcement') || l.includes('news')) {
+          const abs = href && href.startsWith('http') ? href : (href ? new URL(href, websiteUrl).href : null)
+          if (abs) notices.push({ title: label || 'Notice', link: abs })
+        }
+      } catch (_) { /* ignore bad links */ }
+    })
+  } catch (_) { /* ignore anchor scan errors */ }
   return { hints, notices: notices.slice(0, 5) }
 }
 
