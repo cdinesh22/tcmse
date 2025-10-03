@@ -23,7 +23,6 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.26.2",
     "rss-parser": "^3.13.0",
-    "temple-crowd-management": "file:..",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
